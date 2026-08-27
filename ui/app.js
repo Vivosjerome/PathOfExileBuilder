@@ -19,7 +19,9 @@
     abort: null,
   };
 
-  const PAGES = location.hostname.endsWith("github.io");
+  const LOCAL = location.hostname === "127.0.0.1" || location.hostname === "localhost";
+  const REMOTE = !LOCAL;
+  const ON_PAGES = location.hostname.endsWith("github.io");
 
   const EXTRA_DIMS = [
     { id: "rares", label: "Rares générés" },
@@ -41,14 +43,24 @@
   }
 
   function repoSlug() {
-    if (!PAGES) return "Vivosjerome/PathOfExileBuilder";
-    const user = location.hostname.split(".")[0];
-    const repo = location.pathname.split("/").filter(Boolean)[0];
-    return user && repo ? `${user}/${repo}` : "Vivosjerome/PathOfExileBuilder";
+    const js = location.pathname.match(/\/gh\/([^/]+)\/([^/@]+)/);
+    if (location.hostname.includes("jsdelivr.net") && js) return `${js[1]}/${js[2]}`;
+    if (ON_PAGES) {
+      const user = location.hostname.split(".")[0];
+      const repo = location.pathname.split("/").filter(Boolean)[0];
+      if (user && repo) return `${user}/${repo}`;
+    }
+    return "Vivosjerome/PathOfExileBuilder";
+  }
+
+  function schemaUrl() {
+    if (LOCAL) return "/api/schema";
+    if (ON_PAGES) return "../schema.json";
+    return "../docs/schema.json";
   }
 
   async function loadHealth() {
-    if (PAGES) {
+    if (REMOTE) {
       const el = $("health");
       el.textContent = "GitHub Actions · PoB";
       el.className = "health ok";
@@ -395,11 +407,30 @@
   }
 
   async function loadLatest() {
-    const url = PAGES ? "../runs/latest.json" : "/api/latest";
+    const slug = repoSlug();
+    const candidates = LOCAL
+      ? ["/api/latest"]
+      : ON_PAGES
+        ? ["../runs/latest.json"]
+        : [
+            `https://api.github.com/repos/${slug}/contents/docs/runs/latest.json?ref=main`,
+            "../docs/runs/latest.json",
+          ];
     try {
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error("pas encore de résultat publié");
-      const data = await res.json();
+      let data = null;
+      let lastErr = "pas encore de résultat publié";
+      for (const url of candidates) {
+        const headers = {};
+        if (url.includes("api.github.com")) headers.Accept = "application/vnd.github.raw+json";
+        const res = await fetch(url, { cache: "no-store", headers });
+        if (!res.ok) {
+          lastErr = "pas encore de résultat publié";
+          continue;
+        }
+        data = await res.json();
+        break;
+      }
+      if (!data) throw new Error(lastErr);
       const result = data.result || data;
       if (!result || result.pending) throw new Error("en attente");
       renderResult(result);
@@ -416,7 +447,7 @@
   }
 
   async function run() {
-    if (PAGES) {
+    if (REMOTE) {
       await runViaGitHub();
       return;
     }
@@ -488,8 +519,7 @@
 
   async function boot() {
     await loadHealth();
-    const schemaUrl = PAGES ? "../schema.json" : "/api/schema";
-    const schema = await (await fetch(schemaUrl)).json();
+    const schema = await (await fetch(schemaUrl())).json();
     if (schema.error) {
       $("status").textContent = schema.error;
       return;
@@ -530,8 +560,8 @@
     $("run").addEventListener("click", run);
     $("cancel").addEventListener("click", cancel);
     $("reload-latest").addEventListener("click", loadLatest);
-    $("status").textContent = PAGES ? "Prêt — PoB tournera sur GitHub Actions" : "Prêt";
-    if (PAGES) loadLatest().catch(() => {});
+    $("status").textContent = REMOTE ? "Prêt — PoB tournera sur GitHub Actions" : "Prêt";
+    if (REMOTE) loadLatest().catch(() => {});
   }
 
   boot().catch((err) => {
