@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Path of Exile Build Optimizer</title>
+  <style>
+    :root {
+      --bg: #121214;
+      --panel: #19191d;
+      --line: #2c2c33;
+      --text: #eceae6;
+      --muted: #8d8982;
+      --accent: #c4a35a;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.5 "Segoe UI", system-ui, sans-serif;
+    }
+    main { max-width: 720px; margin: 0 auto; padding: 64px 24px 80px; }
+    .kicker {
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin: 0 0 12px;
+    }
+    h1 { font-size: 32px; font-weight: 600; margin: 0 0 12px; letter-spacing: -0.02em; }
+    .lead { color: var(--muted); font-size: 17px; margin: 0 0 28px; }
+    .note {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin: 0 0 28px;
+      color: var(--muted);
+    }
+    .note strong { color: var(--text); font-weight: 600; }
+    h2 {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 28px 0 10px;
+    }
+    pre {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 14px 16px;
+      overflow-x: auto;
+      font: 13px/1.45 ui-monospace, Consolas, monospace;
+      color: var(--text);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .links { display: flex; gap: 16px; margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="kicker">Path of Exile</p>
+    <h1>Build Optimizer</h1>
+    <p class="lead">Le moteur cherche un build complet (stuff, gems, flasks, tree, jewels) et le score avec le vrai Path of Building. Pas une formule maison.</p>
+
+    <p class="note">
+      <strong>GitHub Pages n’exécute pas le moteur.</strong>
+      PoB et LuaJIT tournent sur ta machine. Cette page est la vitrine ; l’optimiseur s’ouvre en local.
+    </p>
+
+    <h2>Lancer</h2>
+    <pre>git clone --recurse-submodules https://github.com/Vivosjerome/PathOfExileBuilder.git
+cd PathOfExileBuilder
+.\scripts\run-worker.ps1 ui</pre>
+
+    <p class="lead" style="margin-top:12px">Puis ouvre <strong>http://127.0.0.1:8765/</strong> — classe, skill, crit, res, vie, ES, et le reste.</p>
+
+    <h2>Prérequis</h2>
+    <p class="lead">LuaJIT dans <code>tools/luajit/</code>, Python 3, et le sous-module Path of Building Community.</p>
+
+    <div class="links">
+      <a href="https://github.com/Vivosjerome/PathOfExileBuilder">Code source</a>
+      <a href="https://github.com/Vivosjerome/PathOfExileBuilder#readme">README</a>
+    </div>
+  </main>
+</body>
+</html>

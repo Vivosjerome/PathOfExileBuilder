@@ -31,6 +31,8 @@ PoB Community est le sous-module `vendor/PathOfBuilding` (branche `dev`).
 
 Ouvre [http://127.0.0.1:8765/](http://127.0.0.1:8765/). Le worker PoB reste en mémoire ; le journal de recherche est streamé en direct.
 
+GitHub Pages (vitrine seulement, le moteur ne tourne pas dans le navigateur) : Settings → Pages → branch `main`, dossier `/docs`. URL : `https://vivosjerome.github.io/PathOfExileBuilder/`
+
 ## Ligne de commande
 
 ```powershell
