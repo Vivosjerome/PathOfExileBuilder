@@ -1,4 +1,1 @@
-{
-  "ok": false,
-  "pending": true
-}
+{"ok": true, "definition": {"ascendancy": "Elementalist", "class": "Witch", "config": [], "constraints": {"max": [], "min": {"ColdResist": 75, "CritMultiplier": 5, "EnergyShield": 2000, "FireResist": 75, "Life": 5000, "LightningResist": 75, "TotalEHP": 15000}}, "level": 90, "objective": "MAX_DPS", "search": {"ascendancy": true, "beamSize": 100, "cluster": true, "dryRun": true, "flasks": true, "gear": true, "gems": true, "jewels": true, "maxJewelPathPoints": 24, "maxJewelRares": 40, "maxJewelSockets": 3, "mutationRounds": 2, "mutationTop": 5, "rares": true, "timeless": true, "tree": true}, "skill": {"level": 20, "name": "Winter Orb", "quality": 20, "slot": "Body Armour", "stages": 10, "supports": []}, "topN": 20}, "verified": null, "complete": null, "best": null, "metrics": null}
