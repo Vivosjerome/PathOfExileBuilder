@@ -31,15 +31,15 @@ PoB Community est le sous-module `vendor/PathOfBuilding` (branche `dev`).
 
 Ouvre [http://127.0.0.1:8765/](http://127.0.0.1:8765/). Le worker PoB reste en mémoire ; le journal de recherche est streamé en direct.
 
-## Interface en ligne (sans GitHub Pages)
+## Interface en ligne
 
-Pas besoin de Pages, ni d’abonnement. Le formulaire est servi depuis le repo :
+Repo **public** + Pages source **GitHub Actions**. L’optimiseur :
 
-[https://cdn.jsdelivr.net/gh/Vivosjerome/PathOfExileBuilder@main/ui/index.html](https://cdn.jsdelivr.net/gh/Vivosjerome/PathOfExileBuilder@main/ui/index.html)
+[https://vivosjerome.github.io/PathOfExileBuilder/app/](https://vivosjerome.github.io/PathOfExileBuilder/app/)
 
-Le repo doit être **public** (Settings → General → Change visibility → Public). « Lancer sur GitHub » crée une issue `[optimize]` (compte propriétaire). Actions exécute LuaJIT + PoB et publie `docs/runs/latest.json`. **Test rapide** = dry-run (quelques secondes). Décoche pour une vraie recherche (20–50 min).
+« Lancer sur GitHub » crée une issue `[optimize]` (compte propriétaire). Actions exécute LuaJIT + PoB. **Test rapide** = dry-run (quelques secondes). Décoche pour une vraie recherche (20–50 min).
 
-Si GitHub demande de payer pour Pages : c’est normal sur un repo **privé**, ou si trop de sites Pages sont déjà actifs. Ne paie pas — utilise le lien jsDelivr ci-dessus. Pour libérer un slot Pages : sur un vieux repo → Settings → Pages → **Unpublish**.
+Pages est gratuit seulement si le repo est public. Un repo privé demande GitHub Pro.
 
 ## Ligne de commande
 

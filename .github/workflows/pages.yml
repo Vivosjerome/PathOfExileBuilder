@@ -1,9 +1,12 @@
 name: pages
 
-# GitHub Pages is optional. The UI is served from jsDelivr without it.
-# Manual only so a Pages quota / private-repo paywall does not fail every push.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
+  workflow_run:
+    workflows: [optimize]
+    types: [completed]
 
 permissions:
   contents: read
@@ -16,6 +19,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
