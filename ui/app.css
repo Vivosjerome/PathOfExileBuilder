@@ -98,7 +98,8 @@ input:focus, select:focus { border-color: var(--accent); }
 .constraint .x { border: 0; background: none; color: var(--muted); padding: 0; }
 .add-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
 
-.range-value { color: var(--accent); font-variant-numeric: tabular-nums; padding-bottom: 8px; }
+label.check { flex-direction: row; align-items: center; gap: 8px; margin-top: 10px; }
+label.check input { width: auto; }
 input[type="range"] { padding: 0; }
 
 .runbar { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }

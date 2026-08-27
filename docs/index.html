@@ -66,16 +66,22 @@
     <p class="lead">Le moteur cherche un build complet (stuff, gems, flasks, tree, jewels) et le score avec le vrai Path of Building. Pas une formule maison.</p>
 
     <p class="note">
-      <strong>GitHub Pages n’exécute pas le moteur.</strong>
-      PoB et LuaJIT tournent sur ta machine. Cette page est la vitrine ; l’optimiseur s’ouvre en local.
+      <strong>Le calcul PoB ne tourne pas dans le navigateur.</strong>
+      GitHub Pages affiche l’interface. Un clic ouvre une issue ; <em>GitHub Actions</em> exécute LuaJIT + Path of Building, puis republie le résultat ici.
+      Le repo doit être <strong>public</strong>, et Pages (Settings) doit utiliser la source <strong>GitHub Actions</strong>.
     </p>
 
-    <h2>Lancer</h2>
+    <div class="links" style="margin:0 0 28px">
+      <a href="./app/">Ouvrir l’optimiseur</a>
+    </div>
+
+    <h2>Comment ça marche</h2>
+    <p class="lead">1. Remplis crit / res / vie / ES / skill.<br>2. « Lancer sur GitHub » → crée l’issue (tu dois être le propriétaire du repo).<br>3. Actions tourne PoB (quelques secondes en test dry-run, 20–50 min en recherche complète).<br>4. Recharge l’optimiseur : le dernier build est dans Résultats.</p>
+
+    <h2>En local (plus fluide)</h2>
     <pre>git clone --recurse-submodules https://github.com/Vivosjerome/PathOfExileBuilder.git
 cd PathOfExileBuilder
 .\scripts\run-worker.ps1 ui</pre>
-
-    <p class="lead" style="margin-top:12px">Puis ouvre <strong>http://127.0.0.1:8765/</strong> — classe, skill, crit, res, vie, ES, et le reste.</p>
 
     <h2>Prérequis</h2>
     <p class="lead">LuaJIT dans <code>tools/luajit/</code>, Python 3, et le sous-module Path of Building Community.</p>

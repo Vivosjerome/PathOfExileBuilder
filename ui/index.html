@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PoE Build Optimizer</title>
-  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="app.css">
 </head>
 <body>
   <header class="top">
@@ -71,6 +71,7 @@
           </label>
           <div class="range-value"><span id="beam-val">100</span></div>
         </div>
+        <label class="check"><input id="dry-run" type="checkbox"> Test rapide (index PoB, sans beam)</label>
       </section>
     </aside>
 
@@ -78,6 +79,7 @@
       <div class="runbar">
         <button type="button" id="run" class="primary">Lancer la recherche</button>
         <button type="button" id="cancel" class="ghost" hidden>Arrêter</button>
+        <button type="button" id="reload-latest" class="ghost" hidden>Dernier résultat</button>
         <div id="status" class="status">Prêt</div>
       </div>
       <div id="hero" class="hero" hidden></div>
@@ -89,6 +91,6 @@
     </section>
   </main>
 
-  <script src="/app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

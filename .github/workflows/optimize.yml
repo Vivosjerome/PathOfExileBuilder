@@ -1,0 +1,125 @@
+name: optimize
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      definition:
+        description: BuildDefinition JSON
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: optimize
+  cancel-in-progress: false
+
+jobs:
+  run:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (startsWith(github.event.issue.title, '[optimize]') &&
+       github.event.issue.user.login == github.repository_owner)
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    container: ghcr.io/pathofbuildingcommunity/pathofbuilding-tests:latest
+    steps:
+      - name: Tools
+        run: apk add --no-cache git python3
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          persist-credentials: true
+
+      - name: Write definition
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          DISPATCH_DEF: ${{ github.event.inputs.definition }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, re
+          raw = os.environ.get("DISPATCH_DEF") or ""
+          if not raw.strip():
+              body = os.environ.get("ISSUE_BODY") or ""
+              m = re.search(r"```json\s*([\s\S]*?)```", body)
+              raw = m.group(1) if m else body
+          defn = json.loads(raw)
+          pathlib.Path("def.json").write_text(json.dumps(defn, ensure_ascii=False), encoding="utf-8")
+          print("dryRun", (defn.get("search") or {}).get("dryRun"))
+          PY
+
+      - name: Comment started
+        if: github.event_name == 'issues'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request
+          n = os.environ["GITHUB_EVENT_PATH"]
+          ev = json.load(open(n, encoding="utf-8"))
+          url = ev["issue"]["comments_url"]
+          req = urllib.request.Request(url, data=json.dumps({"body": "Recherche PoB lancée sur GitHub Actions. Ça peut prendre 20–50 min (ou quelques secondes en test dry-run)."}).encode(), headers={"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json", "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28"})
+          urllib.request.urlopen(req)
+          PY
+
+      - name: Generate
+        run: |
+          chmod +x scripts/ci-generate.sh
+          scripts/ci-generate.sh def.json
+
+      - name: Publish result
+        run: |
+          python3 - <<'PY'
+          import json, pathlib
+          src = pathlib.Path(".cache/generate-result.json")
+          if not src.exists():
+              raise SystemExit("missing .cache/generate-result.json")
+          data = json.loads(src.read_text(encoding="utf-8"))
+          slim = {
+              "ok": data.get("ok", True),
+              "definition": data.get("definition"),
+              "verified": data.get("verified"),
+              "complete": data.get("complete"),
+              "best": data.get("best"),
+              "metrics": data.get("metrics"),
+          }
+          out = pathlib.Path("docs/runs")
+          out.mkdir(parents=True, exist_ok=True)
+          (out / "latest.json").write_text(json.dumps(slim, ensure_ascii=False), encoding="utf-8")
+          print("wrote docs/runs/latest.json")
+          PY
+          git config --global --add safe.directory "${GITHUB_WORKSPACE:-$(pwd)}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/runs/latest.json
+          git diff --cached --quiet || git commit -m "Publish latest optimizer run to GitHub Pages."
+          git push origin HEAD:${{ github.event.repository.default_branch }}
+
+      - name: Comment result
+        if: github.event_name == 'issues' && always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, urllib.request
+          ev = json.load(open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8"))
+          url = ev["issue"]["comments_url"]
+          latest = pathlib.Path("docs/runs/latest.json")
+          if latest.exists():
+              data = json.loads(latest.read_text(encoding="utf-8"))
+              stats = (data.get("verified") or {}).get("stats") or {}
+              dps = stats.get("CombinedDPS")
+              life = stats.get("Life")
+              es = stats.get("EnergyShield")
+              pages = f"https://{os.environ['GITHUB_REPOSITORY_OWNER']}.github.io/{os.environ['GITHUB_REPOSITORY'].split('/')[1]}/app/"
+              body = f"Terminé.\n\n- CombinedDPS: {dps}\n- Life: {life}\n- ES: {es}\n\nRésultat : {pages}"
+          else:
+              body = "Le job s'est arrêté avant de publier un résultat. Ouvre l'onglet Actions pour le log."
+          req = urllib.request.Request(url, data=json.dumps({"body": body}).encode(), headers={"Authorization": f"Bearer {os.environ['GH_TOKEN']}", "Accept": "application/vnd.github+json", "Content-Type": "application/json", "X-GitHub-Api-Version": "2022-11-28"})
+          urllib.request.urlopen(req)
+          PY

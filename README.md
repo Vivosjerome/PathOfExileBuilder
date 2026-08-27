@@ -31,14 +31,15 @@ PoB Community est le sous-module `vendor/PathOfBuilding` (branche `dev`).
 
 Ouvre [http://127.0.0.1:8765/](http://127.0.0.1:8765/). Le worker PoB reste en mémoire ; le journal de recherche est streamé en direct.
 
-GitHub Pages affiche uniquement la vitrine (le moteur PoB ne tourne pas dans le navigateur).
+## GitHub Pages
 
-1. Rends le repo **public** : GitHub → Settings → General → Danger zone → Change repository visibility → Public.
-2. Active Pages : Settings → Pages → **Source = GitHub Actions** → Save.
-   Alternative : Source = **Deploy from a branch**, branch `main`, dossier `/docs`.
-3. Attends une minute, puis ouvre [https://vivosjerome.github.io/PathOfExileBuilder/](https://vivosjerome.github.io/PathOfExileBuilder/).
+Pages sert l’UI. **PoB tourne dans GitHub Actions**, pas dans le navigateur.
 
-Pour l’optimiseur lui-même : `.\scripts\run-worker.ps1 ui` → [http://127.0.0.1:8765/](http://127.0.0.1:8765/).
+1. Repo **public** : Settings → General → Change visibility → Public.
+2. Pages : Settings → Pages → Source = **GitHub Actions**.
+3. Ouvre [https://vivosjerome.github.io/PathOfExileBuilder/app/](https://vivosjerome.github.io/PathOfExileBuilder/app/).
+4. « Lancer sur GitHub » crée une issue `[optimize]` (compte propriétaire). Actions exécute LuaJIT + PoB et publie `docs/runs/latest.json`.
+5. Coche **Test rapide** pour un dry-run (quelques secondes). Décoche pour une vraie recherche (20–50 min).
 
 ## Ligne de commande
 

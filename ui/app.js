@@ -19,6 +19,8 @@
     abort: null,
   };
 
+  const PAGES = location.hostname.endsWith("github.io");
+
   const EXTRA_DIMS = [
     { id: "rares", label: "Rares générés" },
   ];
@@ -38,7 +40,24 @@
     return (state.schema && state.schema.stats.find((s) => s.key === key)) || { key, label: key, unit: "number" };
   }
 
+  function repoSlug() {
+    if (!PAGES) return "Vivosjerome/PathOfExileBuilder";
+    const user = location.hostname.split(".")[0];
+    const repo = location.pathname.split("/").filter(Boolean)[0];
+    return user && repo ? `${user}/${repo}` : "Vivosjerome/PathOfExileBuilder";
+  }
+
   async function loadHealth() {
+    if (PAGES) {
+      const el = $("health");
+      el.textContent = "GitHub Actions · PoB";
+      el.className = "health ok";
+      $("run").textContent = "Lancer sur GitHub";
+      $("reload-latest").hidden = false;
+      $("cancel").hidden = true;
+      $("dry-run").checked = true;
+      return;
+    }
     try {
       const h = await (await fetch("/api/health")).json();
       const el = $("health");
@@ -225,7 +244,7 @@
       search: {
         ...state.search,
         beamSize: Number($("beam").value) || 100,
-        dryRun: false,
+        dryRun: $("dry-run").checked === true,
       },
     };
   }
@@ -355,8 +374,52 @@
     );
   }
 
+  async function runViaGitHub() {
+    const def = definition();
+    const title = `[optimize] ${def.skill.name} · ${def.class} ${def.ascendancy}`;
+    const body = [
+      "PoB tournera dans GitHub Actions. Ferme cette page seulement après avoir cliqué *Submit new issue*.",
+      "",
+      "```json",
+      JSON.stringify(def, null, 2),
+      "```",
+      "",
+    ].join("\n");
+    const url = `https://github.com/${repoSlug()}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}`;
+    $("status").textContent = "Confirme l’issue GitHub — Actions lance le vrai PoB.";
+    $("log-wrap").open = true;
+    appendLog("Le navigateur ne calcule pas le DPS. GitHub Actions exécute LuaJIT + Path of Building.");
+    appendLog(def.search.dryRun ? "Mode test : index PoB seulement." : "Recherche complète : souvent 20–50 min.");
+    appendLog("Quand le job est vert, clique « Dernier résultat » ou recharge cette page.");
+    window.open(url, "_blank", "noopener");
+  }
+
+  async function loadLatest() {
+    const url = PAGES ? "../runs/latest.json" : "/api/latest";
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error("pas encore de résultat publié");
+      const data = await res.json();
+      const result = data.result || data;
+      if (!result || result.pending) throw new Error("en attente");
+      renderResult(result);
+      $("status").textContent = "Dernier run GitHub Actions";
+      $("log-wrap").open = true;
+      if (data.log) {
+        $("log").textContent = data.log;
+      } else {
+        appendLog("Résultat chargé depuis runs/latest.json");
+      }
+    } catch (err) {
+      $("status").textContent = String(err.message || err);
+    }
+  }
+
   async function run() {
-    if (state.running) return;
+    if (PAGES) {
+      await runViaGitHub();
+      return;
+    }
     state.running = true;
     $("run").disabled = true;
     $("cancel").hidden = false;
@@ -425,7 +488,8 @@
 
   async function boot() {
     await loadHealth();
-    const schema = await (await fetch("/api/schema")).json();
+    const schemaUrl = PAGES ? "../schema.json" : "/api/schema";
+    const schema = await (await fetch(schemaUrl)).json();
     if (schema.error) {
       $("status").textContent = schema.error;
       return;
@@ -465,7 +529,9 @@
     });
     $("run").addEventListener("click", run);
     $("cancel").addEventListener("click", cancel);
-    $("status").textContent = "Prêt";
+    $("reload-latest").addEventListener("click", loadLatest);
+    $("status").textContent = PAGES ? "Prêt — PoB tournera sur GitHub Actions" : "Prêt";
+    if (PAGES) loadLatest().catch(() => {});
   }
 
   boot().catch((err) => {
