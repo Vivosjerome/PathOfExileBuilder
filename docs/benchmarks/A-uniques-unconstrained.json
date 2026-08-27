@@ -1,0 +1,35 @@
+{
+  "benchmark": "A",
+  "label": "Uniques only, no resist constraint",
+  "identity": {
+    "class": "Witch",
+    "ascendancy": "Elementalist",
+    "level": 90,
+    "skill": "Winter Orb"
+  },
+  "combinedDPS": 482651.55,
+  "metrics": {
+    "candidatesGenerated": 141415,
+    "candidatesTested": 123745,
+    "pobEvaluations": 120765,
+    "calculationsPerSecond": 225.3,
+    "seconds": 536.03,
+    "cacheHits": 2980,
+    "prunedImpossible": 0,
+    "eliminatedFromBeam": 109345,
+    "errors": 0
+  },
+  "bestItems": [
+    {"slot": "Helmet", "name": "Malachai's Awakening, Iron Mask"},
+    {"slot": "Gloves", "name": "Facebreaker, Strapped Mitts"},
+    {"slot": "Boots", "name": "Annihilation's Approach, Dragonscale Boots"},
+    {"slot": "Body Armour", "name": "Pragmatism, Colosseum Plate"},
+    {"slot": "Amulet", "name": "Marylene's Fallacy, Lapis Amulet"},
+    {"slot": "Ring 1", "name": "Original Sin, Amethyst Ring"},
+    {"slot": "Ring 2", "name": "Ixchel's Temptation, Gold Ring"},
+    {"slot": "Belt", "name": "Bound Fate, Cloth Belt"},
+    {"slot": "Weapon 1", "name": "Divinarius, Imperial Skean"},
+    {"slot": "Weapon 2", "name": "Replica Nebulis, Void Sceptre"}
+  ],
+  "notes": "Maximum CombinedDPS with unique gear only. Resistances were not constrained. Verified 0% vs PoB."
+}

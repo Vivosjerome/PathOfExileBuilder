@@ -1,0 +1,11 @@
+.cache/
+cache/results/
+*.log
+tools/luajit/
+tools/*.zip
+__pycache__/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.pyc

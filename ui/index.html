@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PoE Build Optimizer</title>
+  <link rel="stylesheet" href="/app.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <strong>PoE Build Optimizer</strong>
+      <span class="muted">PoB est la vérité</span>
+    </div>
+    <div id="health" class="health wait">moteur…</div>
+  </header>
+
+  <main class="layout">
+    <aside class="panel form" id="form-panel">
+      <section>
+        <h2>Personnage</h2>
+        <div class="grid-2">
+          <label>Classe
+            <select id="class"></select>
+          </label>
+          <label>Ascendance
+            <select id="ascendancy"></select>
+          </label>
+          <label>Niveau
+            <input id="level" type="number" min="1" max="100" value="90">
+          </label>
+          <label>Skill
+            <div class="combo">
+              <input id="skill" type="text" value="Winter Orb" autocomplete="off" spellcheck="false">
+              <div id="skill-list" class="menu" hidden></div>
+            </div>
+          </label>
+          <label>Niveau gemme
+            <input id="skill-level" type="number" min="1" max="21" value="20">
+          </label>
+          <label>Qualité
+            <input id="skill-quality" type="number" min="0" max="23" value="20">
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Objectif</h2>
+        <label class="full">Maximiser
+          <select id="objective"></select>
+        </label>
+      </section>
+
+      <section>
+        <h2>Exigences</h2>
+        <p class="hint">Min / max sur n’importe quelle stat PoB. Le moteur refuse les builds qui ne passent pas.</p>
+        <div id="presets" class="chips"></div>
+        <div id="constraints" class="constraints"></div>
+        <div class="add-row">
+          <select id="add-stat"></select>
+          <button type="button" id="add-constraint" class="ghost">Ajouter</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Recherche</h2>
+        <div id="dimensions" class="toggles"></div>
+        <div class="grid-2 tight">
+          <label>Largeur du beam
+            <input id="beam" type="range" min="20" max="150" step="10" value="100">
+          </label>
+          <div class="range-value"><span id="beam-val">100</span></div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="panel results">
+      <div class="runbar">
+        <button type="button" id="run" class="primary">Lancer la recherche</button>
+        <button type="button" id="cancel" class="ghost" hidden>Arrêter</button>
+        <div id="status" class="status">Prêt</div>
+      </div>
+      <div id="hero" class="hero" hidden></div>
+      <div id="build" class="build" hidden></div>
+      <details id="log-wrap" class="log-wrap">
+        <summary>Journal</summary>
+        <pre id="log" class="log"></pre>
+      </details>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

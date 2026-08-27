@@ -1,0 +1,54 @@
+{
+  "benchmark": "B",
+  "label": "Uniques only, Fire/Cold/Lightning >= 75",
+  "identity": {
+    "class": "Witch",
+    "ascendancy": "Elementalist",
+    "level": 90,
+    "skill": "Winter Orb"
+  },
+  "comparison": {
+    "unconstrainedDps": 482651.55,
+    "constrainedDps": 96974.903302893,
+    "dpsLossPct": 79.907885242906,
+    "valid": true,
+    "verifiedPobDifferencePct": 0
+  },
+  "combinedDPS": 96974.903302893,
+  "resists": { "fire": 80, "cold": 80, "lightning": 80 },
+  "unconstrainedProbe": {
+    "combinedDPS": 482651.55,
+    "resists": { "fire": -40, "cold": -40, "lightning": -40 },
+    "feasible": false,
+    "deficit": { "fire": 115, "cold": 115, "lightning": 115 }
+  },
+  "metrics": {
+    "candidatesGenerated": 141419,
+    "candidatesTested": 121778,
+    "pobEvaluations": 117568,
+    "calculationsPerSecond": 236.41,
+    "seconds": 497.302,
+    "cacheHits": 4210,
+    "cacheHitRate": 0.0298,
+    "errors": 0,
+    "prunedImpossible": 10930,
+    "eliminatedFromBeam": 102147,
+    "validBuilds": 100,
+    "nearFeasibleBuilds": 76,
+    "invalid": 19641,
+    "duplicatesSkipped": 184
+  },
+  "bestItems": [
+    {"slot": "Helmet", "name": "Malachai's Awakening, Iron Mask"},
+    {"slot": "Gloves", "name": "Maligaro's Virtuosity, Deerskin Gloves"},
+    {"slot": "Boots", "name": "Legacy of Fury, Wyrmscale Boots"},
+    {"slot": "Body Armour", "name": "Pragmatism, Colosseum Plate"},
+    {"slot": "Amulet", "name": "The Utmost, Gold Amulet"},
+    {"slot": "Ring 1", "name": "Pearl of Tsoatha, Prismatic Ring"},
+    {"slot": "Ring 2", "name": "Kalandra's Touch, Ring"},
+    {"slot": "Belt", "name": "Bound Fate, Cloth Belt"},
+    {"slot": "Weapon 1", "name": "Aurumvorax, Basket Rapier"},
+    {"slot": "Weapon 2", "name": "Nebulis, Void Sceptre"}
+  ],
+  "notes": "Maximum CombinedDPS with unique gear only, requiring Fire/Cold/Lightning >= 75. Chaos not required. Verified 0% vs PoB. Conservative remaining-res pruning plus resistance-aware beam quotas. Do not start Benchmark C until this snapshot is treated as frozen."
+}

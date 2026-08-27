@@ -1,0 +1,135 @@
+{
+  "benchmark": "D",
+  "label": "Uniques + rares + classic jewels, Fire/Cold/Lightning >= 75",
+  "identity": {
+    "class": "Witch",
+    "ascendancy": "Elementalist",
+    "level": 90,
+    "skill": "Winter Orb"
+  },
+  "combinedDPS": 246276.004,
+  "resists": {
+    "cold": 75,
+    "fire": 75,
+    "lightning": 75
+  },
+  "life": 1515,
+  "energyShield": 189,
+  "comparison": {
+    "constrainedDps": 246276.004,
+    "valid": true,
+    "verifiedPobDifferencePct": 0
+  },
+  "metrics": {
+    "candidatesGenerated": 250585,
+    "candidatesTested": 231877,
+    "pobEvaluations": 229041,
+    "seconds": 766.432,
+    "errors": 0
+  },
+  "bestItems": [
+    {
+      "slot": "Helmet",
+      "kind": "unique",
+      "name": "Malachai's Awakening, Iron Mask",
+      "base": null
+    },
+    {
+      "slot": "Gloves",
+      "kind": "generated_rare",
+      "name": "Rare es, Fingerless Silk Gloves",
+      "base": "Fingerless Silk Gloves"
+    },
+    {
+      "slot": "Boots",
+      "kind": "generated_rare",
+      "name": "Rare cap, Stormrider Boots",
+      "base": "Stormrider Boots"
+    },
+    {
+      "slot": "Body Armour",
+      "kind": "unique",
+      "name": "Pragmatism, Colosseum Plate",
+      "base": null
+    },
+    {
+      "slot": "Amulet",
+      "kind": "unique",
+      "name": "Marylene's Fallacy, Lapis Amulet",
+      "base": null
+    },
+    {
+      "slot": "Ring 1",
+      "kind": "unique",
+      "name": "Pearl of Tsoatha, Prismatic Ring",
+      "base": null
+    },
+    {
+      "slot": "Ring 2",
+      "kind": "unique",
+      "name": "Original Sin, Amethyst Ring",
+      "base": null
+    },
+    {
+      "slot": "Belt",
+      "kind": "unique",
+      "name": "Bound Fate, Cloth Belt",
+      "base": null
+    },
+    {
+      "slot": "Weapon 1",
+      "kind": "unique",
+      "name": "Divinarius, Imperial Skean",
+      "base": null
+    },
+    {
+      "slot": "Weapon 2",
+      "kind": "unique",
+      "name": "Nebulis, Void Sceptre",
+      "base": null
+    },
+    {
+      "slot": "Jewel 36634",
+      "kind": "generated_rare",
+      "name": "Viridian Jewel crit, Viridian Jewel",
+      "base": "Viridian Jewel"
+    },
+    {
+      "slot": "Jewel 61419",
+      "kind": "generated_rare",
+      "name": "Crimson Jewel crit, Crimson Jewel",
+      "base": "Crimson Jewel"
+    },
+    {
+      "slot": "Jewel 6230",
+      "kind": "unique",
+      "name": "Transcendent Flesh, Crimson Jewel",
+      "base": "Crimson Jewel"
+    }
+  ],
+  "jewels": {
+    "gainPct": 135.04732327262,
+    "pointsSpent": 20,
+    "sockets": [
+      {
+        "id": 36634,
+        "name": "Basic Jewel Socket",
+        "pathCost": 8,
+        "slotName": "Jewel 36634"
+      },
+      {
+        "id": 61419,
+        "name": "Basic Jewel Socket",
+        "pathCost": 5,
+        "slotName": "Jewel 61419"
+      },
+      {
+        "id": 6230,
+        "name": "Basic Jewel Socket",
+        "pathCost": 7,
+        "slotName": "Jewel 6230"
+      }
+    ]
+  },
+  "notes": "Frozen jewels-only snapshot (classic sockets). Do not overwrite. Full multi-dimension search is the product prototype, not a new regression letter."
+}

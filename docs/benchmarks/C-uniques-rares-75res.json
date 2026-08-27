@@ -1,0 +1,78 @@
+{
+  "benchmark": "C",
+  "label": "Uniques + generated rares, Fire/Cold/Lightning >= 75",
+  "identity": {
+    "class": "Witch",
+    "ascendancy": "Elementalist",
+    "level": 90,
+    "skill": "Winter Orb"
+  },
+  "comparison": {
+    "unconstrainedDps": 482651.55,
+    "benchmarkBDps": 96974.903302893,
+    "constrainedDps": 197639.86666667,
+    "dpsLossVsAPct": 59.05123133518,
+    "gainVsBPct": 103.80517013701,
+    "rareRecoveryOfGapPct": 26.100870826859,
+    "valid": true,
+    "verifiedPobDifferencePct": 0
+  },
+  "combinedDPS": 197639.86666667,
+  "resists": { "fire": 75, "cold": 75, "lightning": 75 },
+  "life": 1620,
+  "energyShield": 282,
+  "rareCount": 2,
+  "uniqueCount": 8,
+  "metrics": {
+    "candidatesGenerated": 185624,
+    "candidatesTested": 169655,
+    "pobEvaluations": 166821,
+    "calculationsPerSecond": 276.1,
+    "seconds": 604.214,
+    "cacheHits": 2834,
+    "cacheHitRate": 0.0153,
+    "errors": 0,
+    "prunedImpossible": 9217,
+    "eliminatedFromBeam": 142156,
+    "validBuilds": 100,
+    "nearFeasibleBuilds": 58,
+    "rareCandidatesGenerated": 359,
+    "uniqueCandidatesGenerated": 1095,
+    "raresCrafted": 463,
+    "raresFailed": 0,
+    "uniqueTested": 117688,
+    "rareTested": 39895,
+    "mixedTopValid": 20
+  },
+  "bestItems": [
+    {"slot": "Helmet", "kind": "unique", "name": "Malachai's Awakening, Iron Mask"},
+    {"slot": "Gloves", "kind": "generated_rare", "base": "Fingerless Silk Gloves", "name": "Rare cap, Fingerless Silk Gloves", "prefixes": ["IncreasedLife8", "AddedLightningDamage6", "AddedColdDamage6"], "suffixes": ["ColdResist8", "FireResist8", "LightningResist8"]},
+    {"slot": "Boots", "kind": "generated_rare", "base": "Phantom Boots", "name": "Rare cap, Phantom Boots", "prefixes": ["IncreasedLife8", "LocalIncreasedEvasionAndEnergyShield7", "LocalBaseEvasionRatingAndEnergyShield4"], "suffixes": ["ColdResist8", "FireResist8", "LightningResist8"]},
+    {"slot": "Body Armour", "kind": "unique", "name": "Pragmatism, Colosseum Plate"},
+    {"slot": "Amulet", "kind": "unique", "name": "Marylene's Fallacy, Lapis Amulet"},
+    {"slot": "Ring 1", "kind": "unique", "name": "Pearl of Tsoatha, Prismatic Ring"},
+    {"slot": "Ring 2", "kind": "unique", "name": "Original Sin, Amethyst Ring"},
+    {"slot": "Belt", "kind": "unique", "name": "Bound Fate, Cloth Belt"},
+    {"slot": "Weapon 1", "kind": "unique", "name": "Divinarius, Imperial Skean"},
+    {"slot": "Weapon 2", "kind": "unique", "name": "Nebulis, Void Sceptre"}
+  ],
+  "mostValuableRareBases": [
+    {"name": "Fingerless Silk Gloves", "count": 20},
+    {"name": "Phantom Boots", "count": 8},
+    {"name": "Cloudwhisper Boots", "count": 4},
+    {"name": "Divine Crown", "count": 4},
+    {"name": "Torturer's Mask", "count": 4},
+    {"name": "Two-Toned Boots", "count": 4},
+    {"name": "Windbreak Boots", "count": 4},
+    {"name": "Lich's Circlet", "count": 2}
+  ],
+  "mostValuableAffixes": [
+    {"name": "ColdResist8", "count": 50},
+    {"name": "FireResist8", "count": 50},
+    {"name": "LightningResist8", "count": 50},
+    {"name": "IncreasedLife8", "count": 24},
+    {"name": "AddedLightningDamage6", "count": 20},
+    {"name": "LocalBaseEnergyShieldAndLife2", "count": 16}
+  ],
+  "notes": "Maximum CombinedDPS with unique gear plus theoretically legal max-roll rares from PoB Explicit mods. Fire/Cold/Lightning >= 75. Chaos not required. Verified 0% vs PoB. Rares on gloves/boots cap resists, which recovers Marylene's Fallacy, Original Sin, Divinarius and Nebulis from Benchmark A. Frozen snapshot — do not overwrite. Next dimension is jewels (Benchmark D), not all systems at once."
+}

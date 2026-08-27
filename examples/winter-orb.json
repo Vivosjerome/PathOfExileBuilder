@@ -1,0 +1,31 @@
+{
+  "class": "Witch",
+  "ascendancy": "Elementalist",
+  "level": 90,
+  "skill": {
+    "name": "Winter Orb",
+    "level": 20,
+    "quality": 20
+  },
+  "objective": "MAX_DPS",
+  "constraints": {
+    "min": {
+      "FireResist": 75,
+      "ColdResist": 75,
+      "LightningResist": 75
+    }
+  },
+  "search": {
+    "gear": true,
+    "rares": true,
+    "jewels": true,
+    "gems": true,
+    "flasks": true,
+    "tree": true,
+    "ascendancy": true,
+    "cluster": true,
+    "timeless": true,
+    "beamSize": 100,
+    "dryRun": false
+  }
+}
